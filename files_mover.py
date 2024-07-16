@@ -5,6 +5,10 @@ SCRIPT_NAME = "files_mover.py"
 
 
 class SortingVariables(Enum):
+    """
+    Enum with sorting variables.
+    """
+    RANDOM = None
     CREATING_DATE = "ctime"
     MODIFICATION_DATE = "mtime"
     NAME = "name"
@@ -23,7 +27,7 @@ class FilesSeparator:
     from `start_folder_num`.
 
     If number of files is not equally divisible by number of folders,
-    last folder will contain less files than the others.
+    last folder will contain fewer files than the others.
 
     Folders names will be like `folder-1`, `folder-2`, etc.
     (see `start_folder_name` parameter to change it).
@@ -33,10 +37,13 @@ class FilesSeparator:
     :param work_folder: path to work folder,
      if None - work folder will be current folder
      (where script is located).
+
     :param num: number of files to separate for each folder.
+
     :param start_folder_name: start name of folders names where files
      will be moved (e.g. if set to "folder-", first folder will be
      "folder-1" and so on).
+
     :param start_folder_num: number of starting folder (e.g. if set
      to 3, first folder will be "folder-3" and so on).
 
@@ -53,7 +60,7 @@ class FilesSeparator:
             num: int = 50,
             start_folder_name: str = "folder-",
             start_folder_num: int = 1,
-            sorting: SortingVariables | str | None = None,
+            sorting: SortingVariables | str | None = SortingVariables.RANDOM,
             reverse: bool = False
     ):
         if work_folder is not None:
@@ -70,7 +77,21 @@ class FilesSeparator:
         self._sorting = str(sorting)
         self._reverse = reverse
 
+    def __str__(self) -> str:
+        """
+        String representation of
+        :class:`FilesSeparator` object.
+        Simply returns method :meth:`info_str()`.
+        :return: str
+        """
+        return self.info_str()
+
     def _sort_files(self) -> None:
+        """
+        Sort files inplace. If sorting is None or not in
+        :class:`SortingVariables`, nothing will happen.
+        :return: None
+        """
         sorting_vars = {
             "ctime": os.path.getctime,
             "mtime": os.path.getmtime,
@@ -82,8 +103,13 @@ class FilesSeparator:
             self._files.sort(key=sorting_vars[self._sorting],
                              reverse=self._reverse)
 
-    def info(self) -> str:
-        info_dir = {
+    def info(self) -> dict:
+        """
+        Returns dictionary with info about
+        :class:`FilesSeparator` object.
+        :return: dict
+        """
+        return {
             "current directory": self._work_folder,
             "number of files": len(self._files),
             "number of folders to create": self._max_folder_num,
@@ -93,9 +119,23 @@ class FilesSeparator:
                           f"{self._max_folder_num +
                              self._start_folder_num - 1}"
         }
-        return "\n".join([f"{k}: {v}" for k, v in info_dir.items()])
+
+    def info_str(self) -> str:
+        """
+        String representation of
+        :class:`FilesSeparator` object.
+        Simply returns string representation
+        of method :meth:`info()`.
+        :return: str
+        """
+        return "\n".join([f"{k}: {v}" for k, v in self.info().items()])
 
     def move(self) -> None:
+        """
+        Actual process: creates folders and moves files to them.
+        Sorting files if it set to do so.
+        :return: None
+        """
         if not self._files:
             raise ValueError("No files to move!")
         print("Moving files to folders...")
@@ -112,3 +152,4 @@ class FilesSeparator:
                               f"{folder}/{self._files[j]}")
                 else:
                     break
+        print("Done!")

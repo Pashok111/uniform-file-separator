@@ -2,7 +2,7 @@ Module with 2 classes: `FilesSeparator` and `SortingVariables` for separating fi
 
 Each folder will contain `num` files, starting from `start_folder_num`.
 
-If number of files is not equally divisible by number of folders, last folder will contain less files than the others.
+If number of files is not equally divisible by number of folders, last folder will contain fewer files than the others.
 
 Folders names will be like `folder-1`, `folder-2`, etc. (see `start_folder_name` parameter to change it).
 
