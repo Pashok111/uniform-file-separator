@@ -1,16 +1,25 @@
+# Files Separator 
 Module with 2 classes: `FilesSeparator` and `SortingVariables` for separating files into folders.
 
 Each folder will contain `num` files, starting from `start_folder_num`.
 
-If number of files is not equally divisible by number of folders, last folder will contain less files than the others.
+If number of files is not equally divisible by number of folders, last folder will contain fewer files than the others.
 
 Folders names will be like `folder-1`, `folder-2`, etc. (see `start_folder_name` parameter to change it).
 
 Other folders in work folder will be ignored.
 
+### Methods:
 
+`info()`: Returns dictionary with info about `FilesSeparator` object.
 
-Parameters:
+`info_str()`: String representation of `FilesSeparator` object.
+
+`info_print()`: Print info about `FilesSeparator` object.
+
+`move()`: Actual process: creates folders and moves files into them. Sorting files if it set to do so.
+
+### Parameters:
 
 `work_folder`: path to work folder, if None - work folder will be current folder (where script is located).
 
@@ -24,7 +33,7 @@ Parameters:
 
 `reverse`: if True - files will be sorted in reverse order (doesn't work if `sorting` is None).
 
-Example:
+### Example:
 ```python
 from files_mover import FilesSeparator, SortingVariables
 
@@ -36,7 +45,7 @@ separator = FilesSeparator(
     sorting=SortingVariables.NAME,
     reverse=True
 )
-print(separator.info())  # Print info about files and new folders:
+separator.info_print()  # Print info about files and new folders:
 # current directory: /home/user/temp_folder
 # number of files: 179
 # number of folders to create: 4
