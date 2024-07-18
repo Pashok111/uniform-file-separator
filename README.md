@@ -9,29 +9,21 @@ Folders names will be like `folder-1`, `folder-2`, etc. (see `start_folder_name`
 
 Other folders in work folder will be ignored.
 
-### Methods:
+### Methods (of `FilesSeparator`):
 
-`info()`: Returns dictionary with info about `FilesSeparator` object.
+- `info()`: Returns dictionary with info about `FilesSeparator` object.
+- `info_str()`: String representation of `FilesSeparator` object.
+- `info_print()`: Print info about `FilesSeparator` object.
+- `move()`: Actual process: creates folders and moves files into them. Sorting files if it set to do so.
 
-`info_str()`: String representation of `FilesSeparator` object.
+### Parameters (of `FilesSeparator`):
 
-`info_print()`: Print info about `FilesSeparator` object.
-
-`move()`: Actual process: creates folders and moves files into them. Sorting files if it set to do so.
-
-### Parameters:
-
-`work_folder`: path to work folder, if None - work folder will be current folder (where script is located).
-
-`num`: number of files to separate for each folder.
-
-`start_folder_name`: start name of folders names where files will be moved (e.g. if set to "folder-", first folder will be "folder-1" and so on).
-
-`start_folder_num`: number of starting folder (e.g. if set to 3, first folder will be "folder-3" and so on).
-
-`sorting`: if None - files will be not sorted and will be moved randomly. Sorting variables you can grab from `SortingVariables` class.
-
-`reverse`: if True - files will be sorted in reverse order (doesn't work if `sorting` is None).
+- `work_folder`: path to work folder, if None - work folder will be current folder (where script is located).
+- `num`: number of files to separate for each folder.
+- `start_folder_name`: start name of folders names where files will be moved (e.g. if set to "folder-", first folder will be "folder-1" and so on).
+- `start_folder_num`: number of starting folder (e.g. if set to 3, first folder will be "folder-3" and so on).
+- `sorting`: if None - files will be not sorted and will be moved randomly. Sorting variables you can grab from `SortingVariables` class.
+- `reverse`: if True - files will be sorted in reverse order (doesn't work if `sorting` is None).
 
 ### Example:
 ```python
